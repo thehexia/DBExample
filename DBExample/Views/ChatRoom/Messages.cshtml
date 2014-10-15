@@ -1,0 +1,28 @@
+﻿@model List<DBExample.Models.MessageModel>
+@{
+    ViewBag.Title = "Messages";
+}
+
+@Html.ActionLink("Reply", "AddMessageForm", new { ChatID = ViewBag.ChatID }, null )
+
+<h2>Messages</h2>
+<table>
+@foreach (var item in Model)
+{
+     <tr>
+         <td>
+             @item.Author @item.Timestamp
+         </td>
+         <td>
+             <div style="color:red">@item.Message</div>
+         </td>
+         <td>
+             @if (item.Author == User.Identity.Name)
+             {
+                 @Html.ActionLink("Edit", "EditMessageForm", new { MessageID = item.MessageID })
+             }
+         </td>
+
+     </tr>
+}
+</table>

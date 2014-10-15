@@ -1,0 +1,8 @@
+﻿@{
+    ViewBag.Title = "Delete Confirm";
+}
+
+<h2>Are you sure you want to delete this Chat Room?</h2>
+
+@Html.ActionLink("Yes!", "Delete", new { ChatID = ViewBag.ChatID }, null)
+@Html.ActionLink("No!", "Index")

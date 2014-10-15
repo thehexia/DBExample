@@ -1,0 +1,28 @@
+﻿@model List<DBExample.Models.ChatRoomModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Chat Room Index</h2>
+
+@Html.ActionLink("Create", "CreateChatRoom", "ChatRoom")
+
+<table>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @item.Owner -
+            @Html.ActionLink(item.ChatRoomName, "Messages", "ChatRoom", new { ChatID = item.ChatID }, null)
+        </td>
+        <td>
+            @if (item.Owner == User.Identity.Name)
+            {
+                @Html.ActionLink("Delete", "DeleteConfirm", new { ChatID = item.ChatID }, null)
+            }
+        </td>
+    </tr>
+        
+}
+</table>
+

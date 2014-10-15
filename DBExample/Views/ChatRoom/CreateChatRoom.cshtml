@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "CreateChatroom";
+}
+
+<h2>Create Chatroom</h2>
+
+@using(Html.BeginForm("Create", "ChatRoom"))
+{
+    @Html.ValidationSummary(true)
+    
+    <text>Chat Room Name:</text> @Html.TextBox("name")
+    <input type="submit" value="Create" />
+}

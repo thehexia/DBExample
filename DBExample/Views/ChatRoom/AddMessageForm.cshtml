@@ -1,0 +1,16 @@
+﻿@model DBExample.Models.MessageModel
+@{
+    ViewBag.Title = "AddMessageForm";
+}
+
+<h2>Add Message</h2>
+
+@using (Html.BeginForm("AddMessage", "ChatRoom"))
+{
+    @Html.TextAreaFor( model =>  model.Message)
+    @Html.HiddenFor( model =>  model.ChatID, (int)ViewBag.ChatID)
+    @Html.HiddenFor( model =>  model.Author, User.Identity.Name)
+    @Html.HiddenFor( model =>  model.Timestamp, DateTime.Now)
+    <br />
+    <input type="submit" value="Create" />
+}
