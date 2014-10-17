@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="ChatRooms" EntityType="Model.Store.ChatRooms" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Messages" EntityType="Model.Store.Messages" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__Messages__ChatID__0A688BB1" Association="Model.Store.FK__Messages__ChatID__0A688BB1">
+            <End Role="ChatRooms" EntitySet="ChatRooms" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ChatRooms">
+          <Key>
+            <PropertyRef Name="ChatID" />
+          </Key>
+          <Property Name="ChatID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Owner" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="ChatRoomName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="varchar" MaxLength="1000" />
+          <Property Name="Author" Type="varchar" MaxLength="100" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+          <Property Name="ChatID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Messages__ChatID__0A688BB1">
+          <End Role="ChatRooms" Type="Model.Store.ChatRooms" Multiplicity="1" />
+          <End Role="Messages" Type="Model.Store.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChatRooms">
+              <PropertyRef Name="ChatID" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="ChatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ChatRoomEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="ChatRooms" EntityType="Model.ChatRoom" />
+          <EntitySet Name="Messages" EntityType="Model.Message" />
+          <AssociationSet Name="FK__Messages__ChatID__0A688BB1" Association="Model.FK__Messages__ChatID__0A688BB1">
+            <End Role="ChatRooms" EntitySet="ChatRooms" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ChatRoom">
+          <Key>
+            <PropertyRef Name="ChatID" />
+          </Key>
+          <Property Name="ChatID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Owner" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ChatRoomName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Messages" Relationship="Model.FK__Messages__ChatID__0A688BB1" FromRole="ChatRooms" ToRole="Messages" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Message1" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="Author" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ChatID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ChatRoom" Relationship="Model.FK__Messages__ChatID__0A688BB1" FromRole="Messages" ToRole="ChatRooms" />
+        </EntityType>
+        <Association Name="FK__Messages__ChatID__0A688BB1">
+          <End Role="ChatRooms" Type="Model.ChatRoom" Multiplicity="1" />
+          <End Role="Messages" Type="Model.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChatRooms">
+              <PropertyRef Name="ChatID" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="ChatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ChatRoomEntities">
+          <EntitySetMapping Name="ChatRooms">
+            <EntityTypeMapping TypeName="Model.ChatRoom">
+              <MappingFragment StoreEntitySet="ChatRooms">
+                <ScalarProperty Name="ChatID" ColumnName="ChatID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="ChatRoomName" ColumnName="ChatRoomName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="Model.Message">
+              <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+                <ScalarProperty Name="Message1" ColumnName="Message" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="ChatID" ColumnName="ChatID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

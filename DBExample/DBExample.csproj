@@ -45,6 +45,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -96,11 +98,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChatRoom.cs">
+      <DependentUpon>ChatRooms.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChatRooms.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChatRooms.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChatRooms.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChatRooms.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChatRooms.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChatRooms.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChatRoomController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Message.cs">
+      <DependentUpon>ChatRooms.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ChatModel.cs" />
@@ -162,6 +185,23 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
+    <EntityDeploy Include="ChatRooms.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ChatRooms.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="ChatRooms.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ChatRooms.edmx</DependentUpon>
+      <LastGenOutput>ChatRooms.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ChatRooms.edmx.diagram">
+      <DependentUpon>ChatRooms.edmx</DependentUpon>
+    </Content>
+    <Content Include="ChatRooms.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ChatRooms.edmx</DependentUpon>
+      <LastGenOutput>ChatRooms.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -208,12 +248,17 @@
     <Content Include="Views\ChatRoom\AddMessageForm.cshtml" />
     <Content Include="Views\ChatRoom\EditMessageForm.cshtml" />
     <Content Include="Views\ChatRoom\DeleteConfirm.cshtml" />
+    <Content Include="Views\ChatRoom\SearchChatRoomsForm.cshtml" />
+    <Content Include="Views\ChatRoom\SearchChatRooms.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

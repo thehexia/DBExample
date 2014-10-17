@@ -13,6 +13,8 @@ namespace DBExample.Controllers
 {
     public class ChatRoomController : Controller
     {
+        ChatRoomEntities db = new ChatRoomEntities();
+
         //
         // GET: /ChatRoom/
         private string connectionString = "Data Source=(LocalDb)\\v11.0;Initial Catalog=aspnet-DBExample-20140921191911;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\\aspnet-DBExample-20140921191911.mdf";
@@ -50,11 +52,13 @@ namespace DBExample.Controllers
             return View(chatRooms);
         }
 
+        [Authorize]
         public ActionResult CreateChatRoom()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult Create(string name)
         {
             //create the chatroom
@@ -218,6 +222,46 @@ namespace DBExample.Controllers
                 }
             }
             return RedirectToAction("Messages", new { ChatID = ChatID });
+        }
+
+        public ActionResult SearchChatRoomsForm()
+        {
+            return View();
+        }
+
+        //searches the db for chat rooms meeting some criteria or another
+        //@param search_type - either "Owner," "Content," or "Title"
+        //@param search_term - some keyword list
+        [HttpPost]
+        public ActionResult SearchChatRooms(string SearchType, string SearchTerm)
+        {
+            if (SearchType == "Owner")
+            {
+                var searchResult = from ChatRooms in db.ChatRooms
+                                   where ChatRooms.Owner == SearchTerm
+                                   select ChatRooms;
+                return View(searchResult);
+            }
+
+            if (SearchType == "Content")
+            {
+                var searchResult = from ChatRooms in db.ChatRooms
+                                   join Messages in db.Messages on ChatRooms.ChatID equals Messages.ChatID
+                                   where Messages.Message1.ToLower().Contains(SearchTerm)
+                                   select ChatRooms;
+
+                return View(searchResult);
+            }
+
+            if (SearchType == "Title")
+            {
+                var searchResult = from ChatRooms in db.ChatRooms
+                                   where ChatRooms.ChatRoomName.ToLower().Contains(SearchTerm)
+                                   select ChatRooms;
+                return View(searchResult);
+            }
+
+            return View();
         }
 
         //creates a table
