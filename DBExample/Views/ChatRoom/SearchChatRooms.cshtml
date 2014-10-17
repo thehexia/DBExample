@@ -1,0 +1,31 @@
+﻿@model IEnumerable<DBExample.ChatRoom>
+@{
+    ViewBag.Title = "Search Chat Rooms";
+}
+
+<h2>Search Chat Rooms Results</h2>
+
+@using (Html.BeginForm("SearchChatRooms", "ChatRoom"))
+{
+
+    List<SelectListItem> dropdown = new List<SelectListItem>();
+    dropdown.Add(new SelectListItem { Text = "Title", Value = "Title"});
+    dropdown.Add(new SelectListItem { Text = "Owner", Value = "Owner"});
+    dropdown.Add(new SelectListItem { Text = "Content", Value = "Content"});
+    @Html.DropDownList("SearchType", dropdown);
+    <text>Search: </text> @Html.TextBox("SearchTerm");
+    <input type="submit" value="Search"/>
+}
+
+<table>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @item.Owner -
+            @Html.ActionLink(item.ChatRoomName, "Messages", "ChatRoom", new { ChatID = item.ChatID }, null)
+        </td>
+    </tr>
+}
+</table>
+
