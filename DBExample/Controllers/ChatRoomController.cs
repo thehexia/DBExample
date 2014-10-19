@@ -264,6 +264,38 @@ namespace DBExample.Controllers
             return View();
         }
 
+        //sort each one based on popularity
+        public ActionResult MostPopular()
+        {
+            var groupedMessages = from Messages in db.Messages
+                                  group Messages by Messages.ChatRoom into ChatGroups
+                                  orderby ChatGroups.Key.ChatID
+                                  orderby ChatGroups.Count() descending
+                                  select ChatGroups;
+
+            List<ChatRoomModel> result = new List<ChatRoomModel>();
+
+            foreach (var item in groupedMessages)
+            {
+                result.Add(new ChatRoomModel { ChatID = item.Key.ChatID,
+                                          Owner = item.Key.Owner,
+                                          ChatRoomName = item.Key.ChatRoomName }
+                          );
+            }
+            
+            return View("Index", result);         
+        }
+
+        //gets all a user's messages
+        public ActionResult UserActivity(string Username)
+        {
+            var result = from Messages in db.Messages
+                         where Messages.Author == Username
+                         select Messages;
+
+            return View(result);
+        }
+
         //creates a table
         //@param connection string
         private void CreateTable(string conStr)

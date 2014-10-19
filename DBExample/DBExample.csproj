@@ -259,6 +259,7 @@
     <Content Include="Views\ChatRoom\DeleteConfirm.cshtml" />
     <Content Include="Views\ChatRoom\SearchChatRoomsForm.cshtml" />
     <Content Include="Views\ChatRoom\SearchChatRooms.cshtml" />
+    <Content Include="Views\ChatRoom\UserActivity.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
