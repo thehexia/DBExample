@@ -293,6 +293,8 @@ namespace DBExample.Controllers
                          where Messages.Author == Username
                          select Messages;
 
+            ViewBag.Username = Username;
+
             return View(result);
         }
 

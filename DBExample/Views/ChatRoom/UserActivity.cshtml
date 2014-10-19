@@ -1,24 +1,43 @@
-﻿@model IEnumerable<DBExample.ChatRooms.Message>
+﻿@model IEnumerable<DBExample.Message>
+
+<script src="@Url.Content("~/Scripts/jquery.tablesorter.js")" type="text/javascript"></script>
+
+@section Scripts {
+<script>
+    $(document).ready(function () {
+        $("#activity").tablesorter();
+    }
+    );
+</script>
+}
 
 <h1>Activity for @ViewBag.Username</h1>
 
-<table>
+<table class="tablesorter" id="activity">
     <thead>
         <th>
-            Chat
+            Chat &#8645;
         </th>
         <th>
-            Date
+            Date &#8645;
         </th>
         <th>
-            Message
+            Message &#8645;
         </th>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                
+                <td>
+                @Html.ActionLink(item.ChatRoom.ChatRoomName, "Messages", "ChatRoom", new { ChatID = item.ChatID }, null)
+                </td>
+                <td>
+                @item.Timestamp
+                </td>
+                <td>
+                @item.Message1
+                </td>
             </tr>
         }
     </tbody>

@@ -11,7 +11,7 @@
 {
      <tr>
          <td>
-             @item.Author
+             @Html.ActionLink(item.Author, "UserActivity", "ChatRoom", new { Username = item.Author }, null)
          </td>
          <td>
              @item.Timestamp
