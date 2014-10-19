@@ -11,11 +11,12 @@
 {
      <tr>
          <td>
-             @item.Author @item.Timestamp
+             @item.Author
          </td>
          <td>
-             <div style="color:red">@item.Message</div>
+             @item.Timestamp
          </td>
+         
          <td>
              @if (item.Author == User.Identity.Name)
              {
@@ -23,6 +24,11 @@
              }
          </td>
 
+     </tr>
+     <tr>
+         <td colspan="3">
+             <div style="color:red">@item.Message</div>
+         </td>
      </tr>
 }
 </table>

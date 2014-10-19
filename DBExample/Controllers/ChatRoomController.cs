@@ -238,7 +238,7 @@ namespace DBExample.Controllers
             if (SearchType == "Owner")
             {
                 var searchResult = from ChatRooms in db.ChatRooms
-                                   where ChatRooms.Owner == SearchTerm
+                                   where ChatRooms.Owner.Contains(SearchTerm)
                                    select ChatRooms;
                 return View(searchResult);
             }
@@ -250,7 +250,7 @@ namespace DBExample.Controllers
                                    where Messages.Message1.ToLower().Contains(SearchTerm)
                                    select ChatRooms;
 
-                return View(searchResult);
+                return View(searchResult.Distinct());
             }
 
             if (SearchType == "Title")

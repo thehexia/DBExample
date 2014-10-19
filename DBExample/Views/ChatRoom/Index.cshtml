@@ -3,16 +3,42 @@
     ViewBag.Title = "Index";
 }
 
+<script src="@Url.Content("~/Scripts/jquery.tablesorter.js")" type="text/javascript"></script>
+
+@section Scripts {
+<script>
+    $(document).ready(function () {
+        $("#chatrooms").tablesorter();
+    }
+    );
+</script>
+}
+
 <h2>Chat Room Index</h2>
 
 @Html.ActionLink("Create", "CreateChatRoom", "ChatRoom")
+<br />
 
-<table>
+<table class="tablesorter" id="chatrooms">
+<thead>
+    <th>
+        Owner &#8645;
+    </th>
+    <th>
+        Chat Room Name &#8645;
+    </th>
+    <th>
+        Edit
+    </th>
+</thead>
+<tbody>
 @foreach (var item in Model)
 {
     <tr>
         <td>
-            @item.Owner -
+            @item.Owner
+        </td>
+        <td>
             @Html.ActionLink(item.ChatRoomName, "Messages", "ChatRoom", new { ChatID = item.ChatID }, null)
         </td>
         <td>
@@ -24,5 +50,6 @@
     </tr>
         
 }
+</tbody>
 </table>
 

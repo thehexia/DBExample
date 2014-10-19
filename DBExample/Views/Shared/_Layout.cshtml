@@ -11,7 +11,7 @@
     <div class="page">
         <header>
             <div id="title">
-                <h1>Database Management Chat</h1>
+                <h1>DBunked Messageboard</h1>
             </div>
             <div id="logindisplay">
                 @Html.Partial("_LogOnPartial")
@@ -27,6 +27,7 @@
         </header>
         <section id="main">
             @RenderBody()
+            @RenderSection("Scripts", false/*required*/)
         </section>
         <footer>
         </footer>
